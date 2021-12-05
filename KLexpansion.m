@@ -1,4 +1,8 @@
 function phi = KLexpansion(m, k)
+% Code for KL-expansion
+% m is length of expansion (typically, m=20 works well)
+% k is covariance function
+% returns a length-m function handle containing the KL basis functions
 
 [xleg,w] = legpts(m);
 A = zeros(m,m);

@@ -1,5 +1,10 @@
 README
 
+The Chebfun package, and Symbolic math toolbox is required to call the function
+KLexpansion.m, which is called in GPregression.m.
+https://www.chebfun.org/
+
+
 PQR.m: function that returns low-rank factors U,V such that
 	A \approx U*V.
 	Uses deterministic method (rank-revealing pivoted qr)

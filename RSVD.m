@@ -1,4 +1,5 @@
 function [U,S,V] = RSVD(f, xtr, k, p)
+% randomized SVD for hermitian matrices (single-pass)
 % Input matrix A should be a square matrix
 % Note: A need not be square in general, but is square for this purpose
 % f is covariance function (function handle).
@@ -11,13 +12,6 @@ n = length(xtr);
 % Randomized SVD
 
 G = randn(n, k+p);
-% A1 = zeros(n,n);
-% for i = 1:n
-%     for j = 1:n
-%         A1(i,j) = f(x(i),x(j));
-%     end
-% end
-% Y1 = A1*G;
 Y = zeros(n,k+p);
 for i = 1:n
     A = f(xtr(i), xtr(1:n))';

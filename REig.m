@@ -1,5 +1,5 @@
 function [U,S] = REig(f, xtr, r, p)
-% Single-pass randomized eigenvalue decomposition
+% Single-pass hermitian randomized eigenvalue decomposition
 % Input matrix A should be a square matrix
 % Note: A need not be square in general, but is square for this purpose
 % f is covariance function (function handle).
