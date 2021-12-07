@@ -29,17 +29,6 @@ end
 Q = Q1(:,1:r+p);
 
 
-% B = zeros(k+p,n);
-% for i = 1:n
-%     A = f(x(1:n), x(i));
-%     B(1:k+p ,i) = Q'*A;
-% end
-% % norm(B1-B)
-% [Uhat,D,V] = svd(B,'econ');
-% U = Q*Uhat;
-% [Uhat1,D1,V1] = svd(B1,0);
-% U1 = Q1*Uhat1;
-
 D = G'*Q;
 E = Y'*Q;
 C = D\E;

@@ -3,17 +3,19 @@ clear
 % 1. KL-expansion approach
 % 2. Global low rank approx via randomized eigen decomp.
 
-k = @(x,y) exp(-(x-y).^2); % covariance function
-n = 1e+6; % system size (training data)
+k = @(x,y) exp(-(x-y).^2); % Gaussian covariance function
+n = 2^20; % system size (training data)
 fprintf('n = %d\n', n)
-m = 20; % length of KL-expansion
+m = 25; % length of KL-expansion
 t = 100; % number of test points
 %% training data
 rng(7)
-xtr = 2*rand([n,1])-1; 
+xtr = 6*rand([n,1])-3;
+% xtr = 2*rand([n,1])-1;
 xtr = sort(xtr);
 ytr = 2*rand([n,1]);
-xtest = linspace(-1,1,t);
+xtest = linspace(-3,3,t);
+% xtest = linspace(-1,1,t);
 
 %% Regression via KL-expansion
 tic
@@ -38,44 +40,24 @@ mean = Kstar*(U*(Dinv*(U'*ytr)));
 mean = real(mean);
 toc
 
-%% For plot comparison with mldivide
-%% Warning: When activating the following block of code,
-%% set n less than or equal to 1e+3 to prevent memory overflow
-
-% G = zeros(n,n);
-% for i = 1:n
-%     for j = 1:n
-%         G(i,j) = k(xtr(i),xtr(j));
-%     end
-% end
-% Ktr = (eye(n)+G);
-% mtest = Kstar*(Ktr\ytr);
-% plot(xtest, mean, 'LineWidth', 1.5);
-% hold on
-% plot(xtest, mtest, 'r.', 'MarkerSize', 7)
-% legend('KL-expansion', 'mldivide')
-% title(sprintf('System size n = %d\n', n))
-% 
-% % norm(G-X*X')/norm(G)
-
-
-% %% Regression via Randomized Eigen-decomposition
+%% Regression via Randomized Eigen-decomposition
 % tic
 % % target rank
-% r = 10;
+% r = 20;
 % % oversampling parameter
-% p = 10; 
+% p = 0; 
 % [Ur,Sr]=REig(k, xtr, r, p);
-% Drinv = zeros(r,r);
-% for i = 1:r
+% Drinv = zeros(r+p,r+p);
+% for i = 1:r+p
 %     Drinv(i,i) = 1/(Sr(i,i)+1);
 % end
 % Rmean = Kstar*(Ur*(Drinv*(Ur'*ytr)));
 % toc
-% 
-% plot(xtest, mean, 'LineWidth', 1.5);
+
+hold on
+plot(xtest, mean, 'b', 'LineWidth', 1.5);
 % hold on
 % plot(xtest, Rmean, 'r.', 'MarkerSize', 7)
 % legend('KL-expansion', 'Rand. eig.')
-% title(sprintf('System size n = %d\n', n))
+title(sprintf('System size n = %d\n', n))
 
