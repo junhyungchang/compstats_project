@@ -69,7 +69,7 @@ for n = index1 % system size (training data)
     end
     Rmean = Kstar*(Ur*(Drinv*(Ur'*ytr)));
     t7 = toc;
-    Rtime(count) = t3 + t4 + t7;
+    Rtime(count) = t3+ t4 + t7;
 
     %% Regression via HODLR factorization
 %     siz = 2^6;
@@ -79,7 +79,7 @@ for n = index1 % system size (training data)
 %     Htime1(count) = t5+t6;
     %% Print times
     t1 =0; t2 = 0; t5=0; t6=0;
-    fprintf('%.4f %.4f %.4f %.4f %.4f %.4f %.4f\n', t1, t2, t3, t4, t7, t5, t6)
+    fprintf('%.4f %.4f %.4f %.4f %.4f %.4f\n', t1, t2, t3, t4+t7, t5, t6)
 end
 
 %% Plot comparison of posterior mean

@@ -12,23 +12,25 @@ tic
 UV = zeros(n,r*kappa); % store the low rank factors
 AUV = zeros(n,r*kappa); % for applying A inverse
 
-if n > 2^15
-    for j = 1:(log2(n)-15)
+if n > 2^
+    for j = 1:6
         h = n/(2^j); % size of off diagonal blocks
         for i = 1: 2^(j-1)
             x1 = xtr((2*i-2)*h+1:(2*i-1)*h);
             x2 = xtr((2*i-1)*h+1:2*i*h);
+    %         [U1,V1] = RLR(k, x1, x2, r, p); % randomized scheme
             [U1,V1] = KLLR(k, x1, x2, r);   % KL-expansion approx
             UV((2*i-2)*h+1:(2*i-1)*h, (j-1)*r+1:j*r) = U1;
             UV((2*i-1)*h+1:2*i*h, (j-1)*r+1:j*r) = V1;
         end
     end
-    for j = (log2(n)-15):kappa
+    for j = 7:kappa
         h = n/(2^j); % size of off diagonal blocks
         for i = 1: 2^(j-1)
             x1 = xtr((2*i-2)*h+1:(2*i-1)*h);
             x2 = xtr((2*i-1)*h+1:2*i*h);
             [U1,V1] = RLR(k, x1, x2, r, p); % randomized scheme
+    %         [U1,V1] = KLLR(k, x1, x2, r);   % KL-expansion approx
             UV((2*i-2)*h+1:(2*i-1)*h, (j-1)*r+1:j*r) = U1;
             UV((2*i-1)*h+1:2*i*h, (j-1)*r+1:j*r) = V1;
         end
@@ -40,6 +42,7 @@ else
             x1 = xtr((2*i-2)*h+1:(2*i-1)*h);
             x2 = xtr((2*i-1)*h+1:2*i*h);
             [U1,V1] = RLR(k, x1, x2, r, p); % randomized scheme
+    %         [U1,V1] = KLLR(k, x1, x2, r);   % KL-expansion approx
             UV((2*i-2)*h+1:(2*i-1)*h, (j-1)*r+1:j*r) = U1;
             UV((2*i-1)*h+1:2*i*h, (j-1)*r+1:j*r) = V1;
         end
