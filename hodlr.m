@@ -1,4 +1,10 @@
 function [y, t1, t2]=hodlr(k, xtr, y, siz, r)
+% k is covariance function (entry evaluation routine)
+% xtr is the training input
+% y is the training output
+% siz is the size of the smallest diagonal block
+% r is the target rank of off-diagonals
+
 
 n = length(xtr); % system size (training data)
 p = 0;
